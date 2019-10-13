@@ -12,8 +12,8 @@ status = 0
 class joystick_interface:
 	def __init__(self):
 		rospy.init_node('joystick_interface_node')
-        rospy.Subscriber('/joy', Joy, self.joy_callback)
-        rospy.spin()
+		rospy.Subscriber('/joy', Joy, self.joy_callback)
+		rospy.spin()
 
 
     def joy_callback(self,data):
