@@ -3,18 +3,20 @@ Servo servo;
 
 void sweep_object()
 {
-  for (int i=0; i<=60; i++)
-   {
-    servo.write(i);
-    delay(10);
-   }
-   delay(2000);
-
    for (int i=60; i>=0; i--)
    {
     servo.write(i);
     delay(10);
    }
+  delay(2000);
+  for (int i=0; i<=60; i++)
+   {
+    servo.write(i);
+    delay(10);
+   }
+   
+
+
    
   
 //   servo.write(5);
