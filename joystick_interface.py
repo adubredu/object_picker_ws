@@ -14,6 +14,8 @@ class joystick_interface:
 	def __init__(self):
 		rospy.init_node('joystick_interface_node')
 		self.direction = 0
+		self.open = None
+		self.close = None
 		rospy.Subscriber('/joy', Joy, self.joy_callback)
 		self.run_elevator()
 		rospy.spin()
@@ -21,8 +23,8 @@ class joystick_interface:
 
 	def joy_callback(self,data):
 		self.direction = data.axes[1]
-                self.open = data.buttons[0]
-                self.close = data.buttons[4]
+        self.open = data.buttons[0]
+        self.close = data.buttons[4]
                 
 		print(self.direction)
 
@@ -43,11 +45,11 @@ class joystick_interface:
 		ser.write(b's')
 		# print('stopping')
 
-        def control_pick_up(self):
-                if self.open == 1:
-                        ser.write(b'o')
-                elif self.close == 1:
-                        ser.write(b'c')
+    def control_pick_up(self):
+        if self.open == 1:
+                ser.write(b'o')
+        elif self.close == 1:
+                ser.write(b'c')
 
 	def run_elevator(self):
 		while not rospy.is_shutdown():
@@ -57,7 +59,7 @@ class joystick_interface:
 				self.lower_picker()
 			elif self.direction == 0:
 				self.stop_moving()
-                        self.control_pick_up()
+            self.control_pick_up()
                         
 			time.sleep(0.5)
 

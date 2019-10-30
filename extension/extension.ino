@@ -10,6 +10,7 @@
 
 #include <Servo.h>
 Servo myservo;  // create servo object to control a servo 
+Servo pickservo;
 char user_input = 's'; //String captured from serial port
 char state = 's';
 int n; //value to write to servo
@@ -20,11 +21,29 @@ int MAXPOS = 1900;
 int STEPSIZE = 40; //
 String print_message;
 
+
+
+void open_picker()
+{
+   pickservo.writeMicroseconds(500);
+}
+
+
+void close_picker()
+{
+  pickservo.writeMicroseconds(2500);
+}
+
+
 void setup() {
   Serial.begin(9600);
   n = INITPOS;
   myservo.writeMicroseconds(n); //set initial servo position if desired
   myservo.attach(9, MINPOS, MAXPOS);  //the pin for the servo control, and range if desired
+  pickservo.attach(5);
+  pickservo.writeMicroseconds(2500);
+
+  
   setState('s');
 //  Serial.println();
 //  Serial.println("Input 'f' or 'r' to step motor by one step (1 degree)");
@@ -63,19 +82,30 @@ void loop() {
 void setState(char inputState)
 {
   state = inputState;
-  if (state == 'f'){
+  if (state == 'f')
+  {
     direc = 1;
-//    Serial.println("state set to 'f'");
   }
-  else if (state == 'r'){
+  
+  else if (state == 'r')
+  {
     direc = -1;
-//    Serial.println("state set to 'r'");
   }
-  else if (state == 's'){
+  
+  else if (state == 's')
+  {
     direc = 0;
-//    Serial.println("state set to 's'");
   }
-  else {
-//    Serial.println("Invalid state input");
+
+
+  if (state == 'c')
+  {
+    close_picker();
+    
+  }
+
+  if (state == 'o')
+  {
+    open_picker();
   }
 }
