@@ -17,7 +17,7 @@ int n; //value to write to servo
 int direc=1; //multiplier for direction of change in position (1 for forward, -1 for reverse, 0 for no motion)
 int INITPOS = 1000;
 int MINPOS = 1000;
-int MAXPOS = 1900;
+int MAXPOS = 2500;
 int STEPSIZE = 40; //
 String print_message;
 
@@ -25,13 +25,13 @@ String print_message;
 
 void open_picker()
 {
-   pickservo.writeMicroseconds(500);
+   pickservo.writeMicroseconds(800);
 }
 
 
 void close_picker()
 {
-  pickservo.writeMicroseconds(2500);
+  pickservo.writeMicroseconds(2300);
 }
 
 
